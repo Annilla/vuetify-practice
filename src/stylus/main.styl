@@ -1,11 +1,69 @@
 /** Stylus Styles */
+
+/** Kingston custom colors */
+
+$Kingston_White = white
+$Kingston_Black = rgba(0,0,0,0.87)
+$Kingston_LightGray = rgba(0,0,0,0.38)
+$Kingston_LightBg = #EEEEEE
+$Kingston_Red = #DB2627
+$Kingston_Pink = #FF8A80
+$Kingston_Green = #00C097
+$Kingston_DarkGreen = #26A69A
+$Kingston_Gold = #E0B300
+$Kingston_LightRed = #FF2F30
+
+/** Kingston Theme */
+
 $theme := {
-  primary: #DB2627
-  accent: #FF8A80
-  secondary: #00C097
-  info: #26A69A
-  warning: #E0B300
-  error: #FF2F30
-  success: #00C097
+  primary: $Kingston_Red
+  accent: $Kingston_Pink
+  secondary: $Kingston_Green
+  info: $Kingston_DarkGreen
+  warning: $Kingston_Gold
+  error: $Kingston_LightRed
+  success: $Kingston_Green
 }
+
+/** Vuetify */
+
 @import '../../node_modules/vuetify/src/stylus/main'
+
+/** Kingston Custom Elements */
+
+// Select/Text field Label - regular
+.input-group--select.input-group--dirty.input-group--text-field label, :not(.input-group--textarea).input-group--dirty.input-group--text-field label
+  color: $Kingston_Red
+
+// Select/Text field Label - disabled
+.application--light .input-group:not(.input-group--error).input-group--disabled label
+  color: $Kingston_Red
+
+// Select/Text field Underline - regular
+.application--light .input-group:not(.input-group--error) .input-group__details:before
+  background-color: $Kingston_LightBg
+
+// Select/Text field Underline - regular hover
+.input-group.input-group--text-field:not(.input-group--single-line):not(.input-group--error).input-group--focused .input-group__input, .input-group.input-group--text-field:not(.input-group--single-line):not(.input-group--error):focus .input-group__input
+  border-color: $Kingston_Black
+
+.input-group__details:after
+  background-color: $Kingston_Black
+
+// Select/Text field Underline - disabled
+.application--light .input-group.input-group--disabled .input-group__details:before
+  background: linear-gradient(to right, $Kingston_LightGray 0, $Kingston_LightGray 33%, transparent 0)
+  background-size: 4px 100%
+  background-repeat: repeat-x
+
+// Select/Text field Text - disabled
+.application--light .input-group.input-group--dirty.input-group--disabled .input-group__selections__comma
+  color: $Kingston_LightGray
+
+// Select Dropdown
+.application--light .menu__content--select .list .list__tile
+  transition: none
+
+.application--light .menu__content--select .list .list__tile:hover
+  background-color: $Kingston_Red
+  color: $Kingston_White
