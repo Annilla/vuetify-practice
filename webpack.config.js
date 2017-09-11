@@ -5,15 +5,15 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    path: path.resolve(__dirname, './'),
+    publicPath: '/',
+    filename: 'Scripts/[name].js'
   },
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'public': path.resolve(__dirname, './public')
+      'files': path.resolve(__dirname, './src/files')
     }
   },
   module: {
@@ -49,7 +49,8 @@ module.exports = {
         test: /\.(png|jpg|gif|svg|eot|woff|woff2|ttf)$/,
         loader: 'file-loader',
         options: {
-          objectAssign: 'Object.assign'
+          name: '[name].[ext]?[hash]',
+          outputPath: 'Content/files/'
         }
       },
       {
@@ -67,7 +68,7 @@ module.exports = {
   },
   devtool: '#eval-source-map',
   plugins: [
-    new ExtractTextPlugin('./build.css')
+    new ExtractTextPlugin('Content/main.css')
   ]
 }
 
@@ -88,6 +89,14 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+    // Decouple vendor code
+    // https://vuejsdevelopers.com/2017/06/18/vue-js-boost-your-app-with-webpack/
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function (module) {
+        return module.context && module.context.indexOf('node_modules') !== -1;
+      }
     })
   ])
 }
