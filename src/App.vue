@@ -166,6 +166,25 @@
           { text: 'State 7' }
         ]
       }
+    },
+    mounted: () => {
+      console.log('Test Async / Await');
+      // https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/async_function
+      function resolveAfter2Seconds(x) {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve(x);
+          }, 2000);
+        });
+      }
+      async function add1(x) {
+        var a = resolveAfter2Seconds(20);
+        var b = resolveAfter2Seconds(30);
+        return x + await a + await b;
+      }
+      add1(10).then(v => {
+        console.log(v);  // prints 60 after 2 seconds.
+      });
     }
   }
 </script>
