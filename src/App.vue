@@ -80,7 +80,6 @@
                 <v-flex xs6>
                   <v-select
                     v-bind:items="selects"
-                    v-model="select1"
                     label="Label"
                     item-value="text"
                   ></v-select>
